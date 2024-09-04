@@ -139,8 +139,8 @@ def test():
                         print("Excited the program")
                     return
                 else:
-                    questions[str(i+1)] = data["Terms"][str(rnd+1)]
-                    answers[str(i+1)] = f'"{q} is wrong". Correct Answer: {data["Definitions"][str(rnd+1)]}'
+                    questions[str(i+1)] = data["Terms"][str(rnd)]
+                    answers[str(i+1)] = f'"{q} is wrong". Correct Answer: {data["Definitions"][str(rnd)]}'
                 print("\n")
             else:
                 print("The json file is corrupted or broken")
@@ -161,8 +161,8 @@ elif "wr" in mode.lower():
 elif "tes" in mode.lower():
     test()
 elif "c" in mode.lower():
-    new_set_method = input("Would you like to import a JSON file (advanced) or would you like to export a Quizlet set?\n")
-    if "import" in new_set_method.lower() or "json" in new_set_method.lower():
+    new_set_method = input("Would you like to import a JSON file (advanced) or would you like to import a Quizlet set?\n")
+    if "json" in new_set_method.lower():
         json_input = input("Paste the json below:\n")
 
         json_path = "terms.json"
