@@ -162,7 +162,7 @@ elif "tes" in mode.lower():
     test()
 elif "c" in mode.lower():
     new_set_method = input("Would you like to import a JSON file (advanced) or would you like to import a Quizlet set?\n")
-    if "json" in new_set_method.lower():
+    if "js" in new_set_method.lower():
         json_input = input("Paste the json below:\n")
 
         json_path = "terms.json"
@@ -170,7 +170,7 @@ elif "c" in mode.lower():
             file.write(json_input) 
             print("\nrestart the program")
 
-    elif "quizlet" in new_set_method.lower() or "export" in new_set_method.lower():
+    elif "qu" in new_set_method.lower() or "export" in new_set_method.lower():
         instructions = input('\nINSTRUCTIONS ON HOW TO EXPORT QUIZLET SET\n1. Go to a quizlet set that YOU OWN and click the three dots next to the Share and Edit buttons.\n2. Select "Export"\n3. VERY IMPORTANT: You will see a menu with a bunch of options at the top. Do not mess the following instructions up.\n4. For the "Between term and definition" option, choose Custom and write "@@" in the box.\n5. For the "Between rows" option, choose Custom and write "##" in the box.\n6. Copy the text and paste (use the right click menu instead of Ctrl + V) it right under this text and press enter.\n')
         input_string = instructions
 
