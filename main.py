@@ -82,7 +82,16 @@ def write():
 
 def test():
     tmode = input("Would you like to test in multiple choice mode or written mode?\n")
+    if tmode == "exit":
+        return
+    if not "mu" in tmode.lower() or not "wr" in tmode.lower():
+        print("Invalid option")
+        return
     nqs = input("How many questions do you want to have in your test? (There may be repeats of questions sorry)\n")
+    if nqs == "exit":
+        return
+    if nqs < 1:
+        
     print("\n")
     if "mu" in tmode.lower():
         answers = {} # answer given by user
@@ -137,6 +146,7 @@ def test():
                 print(f"Question #{str(i+1)}\n")
                 q = input(data["Terms"][str(rnd)] + ": ")
 
+
                 if q.lower() == data["Definitions"][str(rnd)].lower():
                     questions[str(i+1)] = data["Terms"][str(rnd+1)]
                     answers[str(i+1)] = f'"{q}" is correct.'
@@ -159,6 +169,8 @@ def test():
             print(answers[str(i+1)])
             print("\n")
         print(f"Your score: {math.ceil((num_correct/int(nqs))*100)}% ({num_correct}/{nqs})")
+    else:
+        print("An error occured: No valid test mode provided")
                  
 if "mu" in mode.lower():
     multi()
@@ -177,17 +189,22 @@ elif "c" in mode.lower():
             print("\nrestart the program")
 
     elif "qu" in new_set_method.lower() or "export" in new_set_method.lower():
-        instructions = input('\nINSTRUCTIONS ON HOW TO EXPORT QUIZLET SET\n1. Go to a quizlet set that YOU OWN and click the three dots next to the Share and Edit buttons.\n2. Select "Export"\n3. VERY IMPORTANT: You will see a menu with a bunch of options at the top. Do not mess the following instructions up.\n4. For the "Between term and definition" option, choose Custom and write "@@" in the box.\n5. For the "Between rows" option, choose Custom and write "##" in the box.\n6. Copy the text and paste (use the right click menu instead of Ctrl + V) it right under this text and press enter.\n')
+        term_def_split= "@@"
+        set_split = "##"
+        instructions = input('\nINSTRUCTIONS ON HOW TO EXPORT QUIZLET SET\n1. Go to a quizlet set that YOU OWN and click the three dots next to the Share and Edit buttons.\n2. Select "Export"\n3. VERY IMPORTANT: You will see a menu with a bunch of options at the top. Do not mess the following instructions up.\n4. For the "Between term and definition" option, choose Custom and write "@@" in the box.\n5. For the "Between rows" option, choose Custom and write "##" in the box.\n6. Copy the text and paste (use the right click menu instead of Ctrl + V) it right under this text and press enter.\n7. If your quizlet set has "@" or "#" symbols, type "adv" and press enter now to change the split characters.')
+        if instructions == "adv":
+            term_def_split = input("Between term and definition split characters: ")
+            set_split = input("Between definitions split characters: ")
+            instructions = "Paste the thing you copied from quizlet here: "
         input_string = instructions
-
-        pairs = input_string.split("##")
+        pairs = input_string.split(set_split)
 
         terms = {}
         definitions = {}
 
         for i, pair in enumerate(pairs, start=1):
-            if "@@" in pair:
-                term, definition = pair.split("@@")
+            if term_def_split in pair:
+                term, definition = pair.split(term_def_split)
                 terms[str(i)] = term.strip()
                 definitions[str(i)] = definition.strip()
 
