@@ -27,6 +27,8 @@ with open(file_path, 'w') as file:
 mode = input("Multiple Choice, Written Mode, Test Mode, or Create New Set? (type exit at any time to exit or restart the program)\n")
 print("\n")
 
+# MULTIPLE CHOICE MODE
+
 def multi():
     if data["Terms"] and data["Definitions"]:
         options = []
@@ -41,7 +43,6 @@ def multi():
         random.shuffle(options)
         ans = input(f"{data["Terms"][str(q)]}\n1. {options[0]}\n2. {options[1]}\n3. {options[2]}\n4. {options[3]}\n\n")
 
-
         if ans == "exit":
             r = random.randint(1,100)
             if r == 21:
@@ -55,6 +56,8 @@ def multi():
         multi()
     else:
         print("The json file is corrupted or broken")
+
+# WRITTEN MODE
 
 def write():
     if data["Terms"] and data["Definitions"]:
@@ -75,13 +78,15 @@ def write():
     else:
         print("The json file is corrupted or broken")
 
+# TEST MODE
+
 def test():
     tmode = input("Would you like to test in multiple choice mode or written mode?\n")
     nqs = input("How many questions do you want to have in your test? (There may be repeats of questions sorry)\n")
     print("\n")
     if "mu" in tmode.lower():
-        answers = {}
-        questions = {}
+        answers = {} # answer given by user
+        questions = {} # question given for question #i
         num_correct = 0
         for i in range(int(nqs)):
             if data["Terms"] and data["Definitions"]:
@@ -154,8 +159,6 @@ def test():
             print(answers[str(i+1)])
             print("\n")
         print(f"Your score: {math.ceil((num_correct/int(nqs))*100)}% ({num_correct}/{nqs})")
-        
-
                  
 if "mu" in mode.lower():
     multi()
