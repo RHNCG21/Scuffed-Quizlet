@@ -16,7 +16,10 @@ if os.path.exists(file_path):
         print("JSON file is broken, file was reset")
         data = {"Terms":{},"Definitions":{}}
 else:
-    data = {}
+    data = {"Terms":{},"Definitions":{}}
+
+if not data:
+    data = {"Terms":{},"Definitions":{}}
 
 with open(file_path, 'w') as file:
     json.dump(data, file, indent=4)
