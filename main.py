@@ -215,11 +215,11 @@ elif "c" in mode.lower():
     elif "qu" in new_set_method.lower() or "export" in new_set_method.lower():
         term_def_split= "@@"
         set_split = "##"
-        instructions = input('\nINSTRUCTIONS ON HOW TO EXPORT QUIZLET SET\n1. Go to a quizlet set that YOU OWN and click the three dots next to the Share and Edit buttons.\n2. Select "Export"\n3. VERY IMPORTANT: You will see a menu with a bunch of options at the top. Do not mess the following instructions up.\n4. For the "Between term and definition" option, choose Custom and write "@@" in the box.\n5. For the "Between rows" option, choose Custom and write "##" in the box.\n6. Copy the text and paste (use the right click menu instead of Ctrl + V) it right under this text and press enter.\n7. If your quizlet set has "@" or "#" symbols, type "adv" and press enter now to change the split characters.')
+        instructions = input('\nINSTRUCTIONS ON HOW TO EXPORT QUIZLET SET\n1. Go to a quizlet set that YOU OWN and click the three dots next to the Share and Edit buttons.\n2. Select "Export"\n3. VERY IMPORTANT: You will see a menu with a bunch of options at the top. Do not mess the following instructions up.\n4. For the "Between term and definition" option, choose Custom and write "@@" in the box.\n5. For the "Between rows" option, choose Custom and write "##" in the box.\n6. Copy the text and paste (use the right click menu instead of Ctrl + V) it right under this text and press enter.\n7. If your quizlet set has "@" or "#" symbols, type "adv" and press enter now to change the split characters.\n')
         if instructions == "adv":
             term_def_split = input("Between term and definition split characters: ")
             set_split = input("Between definitions split characters: ")
-            instructions = "Paste the thing you copied from quizlet here: "
+            instructions = input("Paste the thing you copied from quizlet here: ")
         input_string = instructions
         pairs = input_string.split(set_split)
 
