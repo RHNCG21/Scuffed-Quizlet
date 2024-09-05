@@ -7,6 +7,8 @@ file_path = 'terms.json'
 
 data = {}
 
+current_ans = ""
+
 if os.path.exists(file_path):
     try:
         with open(file_path, 'r') as file:
@@ -29,6 +31,17 @@ print("\n")
 
 # MULTIPLE CHOICE MODE
 
+def multi_check_ans(q, options):
+    global current_ans
+    valid_terms = ["1", "2", "3", "4", "exit"]
+    ans = input(f"{data["Terms"][str(q)]}\n1. {options[0]}\n2. {options[1]}\n3. {options[2]}\n4. {options[3]}\n\n")
+    if not ans in valid_terms:
+        print("Invalid option. Try again.\n")
+        multi_check_ans(q, options)
+    else:
+        current_ans = ans
+        return
+
 def multi():
     if data["Terms"] and data["Definitions"]:
         options = []
@@ -41,14 +54,16 @@ def multi():
                 options.append(data["Definitions"][str(rnd)])
 
         random.shuffle(options)
-        ans = input(f"{data["Terms"][str(q)]}\n1. {options[0]}\n2. {options[1]}\n3. {options[2]}\n4. {options[3]}\n\n")
+        
+        multi_check_ans(q, options)
+        ans = current_ans
 
         if ans == "exit":
             r = random.randint(1,100)
             if r == 21:
                 print("Excited the program")
             return
-        elif int(ans) > 0 and int(ans) < 5 and data["Definitions"][str(q)] == options[int(ans)-1]:
+        elif data["Definitions"][str(q)] == options[int(ans)-1]:
             print("Correct")
         else:
             print(f"Wrong. Correct Answer: {data["Definitions"][str(q)]}")
@@ -84,14 +99,22 @@ def test():
     tmode = input("Would you like to test in multiple choice mode or written mode?\n")
     if tmode == "exit":
         return
-    if not "mu" in tmode.lower() or not "wr" in tmode.lower():
+    if not "mu" in tmode.lower() and not "wr" in tmode.lower():
         print("Invalid option")
         return
     nqs = input("How many questions do you want to have in your test? (There may be repeats of questions sorry)\n")
     if nqs == "exit":
         return
-    if nqs < 1:
-        
+    try:
+        int(nqs)
+    except ValueError:
+        print("Invalid number of questions")
+        return
+    if int(nqs) < 1:
+        print("Invalid number of questions")
+        return
+
+
     print("\n")
     if "mu" in tmode.lower():
         answers = {} # answer given by user
@@ -110,7 +133,8 @@ def test():
 
                 random.shuffle(options)
                 print(f"Question #{str(i+1)}\n")
-                ans = input(f"{data["Terms"][str(q)]}\n1. {options[0]}\n2. {options[1]}\n3. {options[2]}\n4. {options[3]}\n\n")
+                multi_check_ans(q, options)
+                ans = current_ans
 
                 if ans == "exit":
                     r = random.randint(1,100)
