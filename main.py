@@ -2,6 +2,7 @@ import random
 import json
 import os
 import math
+import subprocess
 
 file_path = 'terms.json'
 
@@ -214,12 +215,28 @@ elif "c" in mode.lower():
     elif "qu" in new_set_method.lower() or "export" in new_set_method.lower():
         term_def_split= "@@"
         set_split = "##"
-        instructions = input('\nINSTRUCTIONS ON HOW TO EXPORT QUIZLET SET\n1. Go to a quizlet set that YOU OWN and click the three dots next to the Share and Edit buttons.\n2. Select "Export"\n3. VERY IMPORTANT: You will see a menu with a bunch of options at the top. Do not mess the following instructions up.\n4. For the "Between term and definition" option, choose Custom and write "@@" in the box.\n5. For the "Between rows" option, choose Custom and write "##" in the box.\n6. Copy the text and paste (use the right click menu instead of Ctrl + V) it right under this text and press enter.\n7. If your quizlet set has "@" or "#" symbols, type "adv" and press enter now to change the split characters.\n')
+        instructions = input('\nINSTRUCTIONS ON HOW TO EXPORT QUIZLET SET\n1. Go to a quizlet set that YOU OWN and click the three dots next to the Share and Edit buttons.\n2. Select "Export"\n3. IMPORTANT: You will see a menu with a bunch of options at the top. Do not mess the following instructions up.\n4. For the "Between term and definition" option, choose Custom and write "@@" in the box.\n5. For the "Between rows" option, choose Custom and write "##" in the box.\n6. After you press enter, Select All (Ctrl + A), and replace any text in the file with the text you just copied. After you are done, press Ctrl + X then "Y", then press Enter.\n7. If your quizlet set has "@" or "#" symbols, type "adv" and press enter now to change the split characters.\n')
+        
         if instructions == "adv":
             term_def_split = input("Between term and definition split characters: ")
             set_split = input("Between definitions split characters: ")
-            instructions = input("Paste the thing you copied from quizlet here: ")
-        input_string = instructions
+            instructions = input("Press enter to continue to add the copied text to the file\n")
+
+        quizlet_data_path = "quizlet_data.txt"
+        if not os.path.exists(quizlet_data_path):
+            with open(quizlet_data_path, 'w)') as file:
+                # Optionally, you can write initial content to the file here
+                file.write("")
+        try:
+            # Open the file in nano
+            subprocess.run(['nano', quizlet_data_path], check=True)
+        except FileNotFoundError:
+            print("nano is not installed or not found in your PATH.")
+        except subprocess.CalledProcessError as e:
+            print(f"An error occurred while trying to open the file: {e}")
+        with open(quizlet_data_path, 'r') as file:
+            input_string = file.read()
+
         pairs = input_string.split(set_split)
 
         terms = {}
