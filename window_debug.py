@@ -16,5 +16,6 @@ def open_text_file(file_path):
     else:  # Linux
         os.system(f"xdg-open {file_path}")
 
+
 file_path = "quizlet_data.txt"
 open_text_file(file_path)
