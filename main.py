@@ -170,7 +170,6 @@ def test():
                 print(f"Question #{str(i+1)}\n")
                 q = input(data["Terms"][str(rnd)] + ": ")
 
-
                 if q.lower() == data["Definitions"][str(rnd)].lower():
                     questions[str(i+1)] = data["Terms"][str(rnd+1)]
                     answers[str(i+1)] = f'"{q}" is correct.'
