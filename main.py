@@ -192,7 +192,7 @@ def test():
             print("\n")
         print(f"Your score: {math.ceil((num_correct/int(nqs))*100)}% ({num_correct}/{nqs})")
     else:
-        print("An error occured: No valid test mode provided")
+        print("Error: No valid test mode provided")
                  
 if "mu" in mode.lower():
     multi()
