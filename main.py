@@ -222,7 +222,7 @@ elif "c" in mode.lower():
 
         quizlet_data_path = "quizlet_data.txt"
         if not os.path.exists(quizlet_data_path):
-            with open(quizlet_data_path, 'w)') as file:
+            with open(quizlet_data_path, 'w') as file:
                 file.write("")
         try:
             subprocess.run(['nano', quizlet_data_path], check=True)
