@@ -7,7 +7,6 @@ import subprocess
 file_path = 'terms.json'
 
 data = {}
-
 current_ans = ""
 
 if os.path.exists(file_path):
