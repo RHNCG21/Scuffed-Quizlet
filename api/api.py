@@ -5,8 +5,8 @@ app = Flask(__name__)
 data = {"hello": "world"}
 
 @app.route('/data', methods=['GET'])
-def get_employees():
+def get_data():
  return jsonify(data)
 
 if __name__ == '__main__':
-   app.run(port=5000)
+   app.run()
