@@ -5,35 +5,47 @@ from dotenv import load_dotenv
 
 load_dotenv()
 app = Flask(__name__)
-
-# Get the token from environment variables
 token = os.getenv('TOKEN')
+print(token)
 
-# Initialize global_data outside the function
-global_data = {"hello": "world"}
+DATA_FILE = 'data.json'
+if os.path.exists(DATA_FILE):
+    print("Data file found")
+else:
+    with open(DATA_FILE, 'w') as file:
+        json.dump({}, file)
+
+def load_data():
+    """Load data from the JSON file."""
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, 'r') as file:
+            return json.load(file)
+    return {"Error": "No file found"}
+
+def save_data(data):
+    """Save data to the JSON file."""
+    with open(DATA_FILE, 'w') as file:
+        json.dump(data, file)
 
 @app.route('/data', methods=['GET', 'POST'])
 def get_data():
-    # Extract the Authorization header
-    auth_key = request.headers.get('Authorization')
-
-    # Check if the token matches
     if request.method == 'POST':
-        if auth_key == f"Bearer {token}":   
+        auth_key = request.headers.get('Authorization')
+        if auth_key == "Bearer " + token:
             data = request.get_json()
-            if not data:
-                return jsonify({"error": "No data provided"}), 400
-
-            # Append new data to the global_data dictionary
-            global global_data
-            global_data.update(data)
+            # Load current data from file
+            current_data = load_data()
+            # Update data with new values
+            current_data.update(data)
+            # Save updated data back to file
+            save_data(current_data)
             return jsonify({"message": "data appended successfully"})
         else:
             return jsonify({"error": "Unauthorized"}), 401
-    else:
-            return jsonify(global_data)  # Return the current global_data
+    else:  # For GET requests
+        # Return the current data from file
+        current_data = load_data()
+        return jsonify(current_data)
 
 if __name__ == '__main__':
-    if token is None:
-        raise ValueError("No TOKEN environment variable set. Please set it before running the app.")
     app.run()
