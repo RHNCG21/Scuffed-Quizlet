@@ -5,6 +5,15 @@ import math
 import subprocess
 import requests
 
+# Text color escape codes
+RED = "\033[31m"
+GREEN = "\033[32m"
+YELLOW = "\033[33m"
+BLUE = "\033[34m"
+MAGENTA = "\033[35m"
+CYAN = "\033[36m"
+RESET = "\033[0m"  # Resets the text color
+
 file_path = 'terms.json'
 
 data = {}
@@ -30,32 +39,35 @@ mode = input("Multiple Choice, Written Mode, Test Mode, or Create New Set? (type
 print("\n")
 
 
-
 def search_sets():
-    q = input("Would you like to search for a set, or list all available sets?")
+    q = input("Would you like to search for a set, or list all available sets?\n")
     if "l" in q.lower():
-        print("Searching for available sets...")
+        print("\nSearching for available sets...\n")
         set_query = requests.get("https://scuffed-quizlet-api.vercel.app/data")
         sets = set_query.json()
+        print("Available sets:")
+        num = 1
         for i in sets.keys():
-            print(i)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            print(f"{num}. {i}")
+            num += 1
+        set_names = list(sets.keys())
+        set_num = input("\nWhich set would you like to download? (type item number)\n")
+        if not set_num.isnumeric():
+            if set_num == "exit":
+                return
+            print(f"\n{RED}Invalid selection. Try again.{RESET}\n")
+            search_sets()
+        if 1 <= int(set_num) <= len(set_names):
+            selected_set = set_names[int(set_num) - 1]
+            # Save the selected set to 'terms.json'
+            with open('terms.json', 'w') as file:
+                json.dump(sets[selected_set], file, indent=4)
+            
+            print(f"\n{GREEN}'{selected_set}' has been downloaded and saved.{RESET}\n")
+            print("Please restart the program\n")
+        else:
+            print(f"\n{RED}Invalid selection. Try again.{RESET}\n")
+            search_sets()
 
 
 # MULTIPLE CHOICE MODE
@@ -98,7 +110,7 @@ def multi():
         print("\n")
         multi()
     else:
-        print("The json file is corrupted or broken")
+        print(f"{RED}The json file is corrupted or broken{RESET}")
 
 # WRITTEN MODE
 
@@ -136,10 +148,10 @@ def test():
     try:
         int(nqs)
     except ValueError:
-        print("Invalid number of questions")
+        print(f"{RED}Invalid number of questions{RESET}")
         return
     if int(nqs) < 1:
-        print("Invalid number of questions")
+        print(f"{RED}Invalid number of questions{RESET}")
         return
 
 
