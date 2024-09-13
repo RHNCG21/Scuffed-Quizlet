@@ -3,6 +3,7 @@ import json
 import os
 import math
 import subprocess
+import requests
 
 file_path = 'terms.json'
 
@@ -27,6 +28,35 @@ with open(file_path, 'w') as file:
 
 mode = input("Multiple Choice, Written Mode, Test Mode, or Create New Set? (type exit at any time to exit or restart the program)\n")
 print("\n")
+
+
+
+def search_sets():
+    q = input("Would you like to search for a set, or list all available sets?")
+    if "l" in q.lower():
+        print("Searching for available sets...")
+        set_query = requests.get("https://scuffed-quizlet-api.vercel.app/data")
+        sets = set_query.json()
+        for i in sets.keys():
+            print(i)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # MULTIPLE CHOICE MODE
 
@@ -252,5 +282,7 @@ elif "c" in mode.lower():
 
         with open(json_path, "w") as file:
             file.write(json_output)
-
         print("\nrestart the program")
+
+elif "se" in mode.lower():
+    search_sets()
