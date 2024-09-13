@@ -18,8 +18,8 @@ def get_data():
     auth_key = request.headers.get('Authorization')
 
     # Check if the token matches
-    if auth_key == f"Bearer {token}":  # Using Bearer token for standardization
-        if request.method == 'POST':
+    if request.method == 'POST':
+        if auth_key == f"Bearer {token}":   
             data = request.get_json()
             if not data:
                 return jsonify({"error": "No data provided"}), 400
@@ -29,9 +29,9 @@ def get_data():
             global_data.update(data)
             return jsonify({"message": "data appended successfully"})
         else:
-            return jsonify(global_data)  # Return the current global_data
+            return jsonify({"error": "Unauthorized"}), 401
     else:
-        return jsonify({"error": "Unauthorized"}), 401
+            return jsonify(global_data)  # Return the current global_data
 
 if __name__ == '__main__':
     if token is None:
