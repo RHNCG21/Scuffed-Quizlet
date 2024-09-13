@@ -69,6 +69,10 @@ def search_sets():
             print(f"\n{RED}Invalid selection. Try again.{RESET}\n")
             search_sets()
 
+    elif 'se' in q.lower():
+        search_query = input("What set do you want to search for?")
+        set_query = requests.get('https://scuffed-quizlet-api.vercel.app/data')
+        sets = set_query.json()
 
 # MULTIPLE CHOICE MODE
 
@@ -153,7 +157,6 @@ def test():
     if int(nqs) < 1:
         print(f"{RED}Invalid number of questions{RESET}")
         return
-
 
     print("\n")
     if "mu" in tmode.lower():
