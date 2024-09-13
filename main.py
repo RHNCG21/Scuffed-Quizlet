@@ -262,9 +262,10 @@ elif "c" in mode.lower():
             instructions = input("Press enter to continue to add the copied text to the file\n")
 
         quizlet_data_path = "quizlet_data.txt"
-        if not os.path.exists(quizlet_data_path):
-            with open(quizlet_data_path, 'w') as file:
-                file.write("")
+        if os.path.exists(quizlet_data_path):
+            os.remove(quizlet_data_path)
+        with open(quizlet_data_path, 'w') as file:
+            file.write("")
         try:
             subprocess.run(['nano', quizlet_data_path], check=True)
         except FileNotFoundError:
