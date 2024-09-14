@@ -76,6 +76,10 @@ def handle_data():
         # Return the current data from Supabase Storage
         current_data = load_data()
         return jsonify(current_data)
+    
+@app.route('/')
+def home():
+    return "you have reached the scuffed quizlet api. try /data for list of sets" 
 
 if __name__ == '__main__':
     app.run()
