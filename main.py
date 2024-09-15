@@ -123,7 +123,7 @@ def search_sets():
 def multi_check_ans(q, options):
     global current_ans
     valid_terms = ["1", "2", "3", "4", "exit"]
-    ans = input(f"{data["Terms"][str(q)]}\n1. {options[0]}\n2. {options[1]}\n3. {options[2]}\n4. {options[3]}\n\n")
+    ans = input(f'{data["Terms"][str(q)]}\n1. {options[0]}\n2. {options[1]}\n3. {options[2]}\n4. {options[3]}\n\n')
     if not ans in valid_terms:
         print(f"{RED}Invalid option. Try again.{RESET}\n")
         multi_check_ans(q, options)
@@ -158,7 +158,7 @@ def multi():
         elif data["Definitions"][str(q)] == options[int(ans)-1]:
             print(f"{GREEN}Correct{RESET}")
         else:
-            print(f"{RED}Wrong. Correct Answer: {data["Definitions"][str(q)]}{RESET}")
+            print(f'{RED}Wrong. Correct Answer: {data["Definitions"][str(q)]}{RESET}')
         print("\n")
         multi()
     else:
@@ -180,7 +180,7 @@ def write():
             main()
             return
         else:
-            print(f"{RED}Incorrect. Correct Answer: {data["Definitions"][str(rnd)]}{RESET}")
+            print(f'{RED}Incorrect. Correct Answer: {data["Definitions"][str(rnd)]}{RESET}')
         print("\n")
         write()
         return
