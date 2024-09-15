@@ -242,7 +242,7 @@ def test():
                 
                 elif int(ans) > 0 and int(ans) < 5 and data["Definitions"][str(q)] == options[int(ans)-1]:
                     questions[str(i+1)] = data["Terms"][str(q)]
-                    answers[str(i+1)] = f'"{GREEN}{options[int(ans)-1]}" is correct.{RESET}'
+                    answers[str(i+1)] = f'{GREEN}"{options[int(ans)-1]}" is correct.{RESET}'
                     num_correct += 1
                 else:
                     questions[str(i+1)] = data["Terms"][str(q)]
@@ -384,10 +384,10 @@ def main():
         multi()
     elif "wr" in mode.lower() or mode == "2":
         write()
+    elif "cr" in mode.lower() or mode == "4":
+        create_set()
     elif "te" in mode.lower() or mode == "3":
         test()
-    elif "c" in mode.lower() or mode == "4":
-        create_set()
     elif "se" in mode.lower() or mode == "5":
         search_sets()
     else:
