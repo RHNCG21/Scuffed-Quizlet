@@ -303,7 +303,7 @@ def test():
         return
 
 def create_set():
-    new_set_method = input("Would you like to import a JSON file (advanced) or would you like to import a Quizlet set? (You can also search from a set in the main menu)\n")
+    new_set_method = input("Would you like to import a JSON file (kinda broken rn) or would you like to import a Quizlet set? (You can also search from a set in the main menu)\n")
     if "js" in new_set_method.lower():
         json_input = input("Paste the json below:\n")
         json_path = "terms.json"
