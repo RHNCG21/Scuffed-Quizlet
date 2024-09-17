@@ -118,8 +118,6 @@ def search_sets():
         search_sets()
         return
 
-# MULTIPLE CHOICE MODE
-
 def multi_check_ans(q, options):
     global current_ans
     valid_terms = ["1", "2", "3", "4", "exit"]
@@ -166,8 +164,6 @@ def multi():
         main()
         return
 
-# WRITTEN MODE
-
 def write():
     reload_data()
     if data["Terms"] and data["Definitions"]:
@@ -188,8 +184,6 @@ def write():
         print(f"{RED}The json file is corrupted or broken{RESET}")
         main()
         return
-
-# TEST MODE
 
 def test():
     reload_data()
@@ -361,7 +355,15 @@ def create_set():
             file.write(json_output)
         main()
         return
-
+    
+def debug():
+    with open('terms.json', 'r') as json_file:
+        data = json.load(json_file)
+        print(data)
+        print(len(data["Terms"]))
+        response = requests.get('https://scuffed-quizlet-api.vercel.app/data')
+        if response:
+            print("api active")
 
 def main():
     print("\n")
@@ -380,6 +382,8 @@ def main():
 
     if "exit" in mode.lower():
         return            
+    elif "debug" in mode.lower():
+        debug()
     elif "mu" in mode.lower() or mode == "1":
         multi()
     elif "wr" in mode.lower() or mode == "2":
