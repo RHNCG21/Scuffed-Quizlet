@@ -79,7 +79,7 @@ def handle_data():
     
 @app.route('/')
 def home():
-    return "you have reached the scuffed quizlet api. try /data for list of sets" 
+    return "you have reached the scuffed quizlet api. try /data for list of sets\nhttps://github.com/RHNCG21/Scuffed-Quizlet"
 
 if __name__ == '__main__':
     app.run()
