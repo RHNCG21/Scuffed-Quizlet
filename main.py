@@ -233,7 +233,6 @@ def test():
                 if ans == "exit":
                     main()
                     return
-                
                 elif int(ans) > 0 and int(ans) < 5 and data["Definitions"][str(q)] == options[int(ans)-1]:
                     questions[str(i+1)] = data["Terms"][str(q)]
                     answers[str(i+1)] = f'{GREEN}"{options[int(ans)-1]}" is correct.{RESET}'
@@ -350,7 +349,6 @@ def create_set():
 
         json_output = json.dumps(output, indent=4)
         json_path = "terms.json"
-
         with open(json_path, "w") as file:
             file.write(json_output)
         main()
@@ -364,6 +362,8 @@ def debug():
         response = requests.get('https://scuffed-quizlet-api.vercel.app/data')
         if response:
             print("api active")
+        main()
+        return
 
 def main():
     print("\n")
