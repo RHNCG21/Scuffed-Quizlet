@@ -4,6 +4,7 @@ import os
 import math
 import subprocess
 import requests
+from rich import print
 
 # Text color escape codes
 RED = "\033[31m"
